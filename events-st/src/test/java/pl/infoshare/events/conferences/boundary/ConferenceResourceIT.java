@@ -2,9 +2,12 @@
  */
 package pl.infoshare.events.conferences.boundary;
 
+import javax.json.Json;
 import javax.json.JsonArray;
+import javax.json.JsonObject;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Response;
 import static org.hamcrest.CoreMatchers.is;
@@ -35,8 +38,16 @@ public class ConferenceResourceIT {
         JsonArray conferences = allResponse.readEntity(JsonArray.class);
         assertNotNull(conferences);
         System.out.println("conferences = " + conferences);
+    }
+
+    @Test
+    public void saveInvalid() {
+        JsonObject conference = Json.createObjectBuilder().add("desc", "nice").build();
+        Response response = this.tut.request().post(Entity.json(conference));
+        assertThat(response.getStatus(), is(204));
 
     }
+
 
 
 

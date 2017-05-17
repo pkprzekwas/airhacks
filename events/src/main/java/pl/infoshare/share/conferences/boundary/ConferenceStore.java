@@ -18,5 +18,8 @@ public class ConferenceStore {
                 new Conference("geecon", "geeks everywhere"));
     }
 
+    public void save(Conference conference) {
+        conference.validate();
+    }
 
 }

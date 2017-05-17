@@ -18,10 +18,15 @@ public class Conference {
         this.description = description;
     }
 
-
     public Conference(JsonObject input) {
-        this.name = input.getString("name");
+        this.name = input.getString("name", null);
         this.description = input.getString("desc", null);
+    }
+
+    public void validate() {
+        if (this.name == null) {
+            throw new InvalidConferenceException("conference without name");
+        }
     }
 
     public JsonObject toJson() {

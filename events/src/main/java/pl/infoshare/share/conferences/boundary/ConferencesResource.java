@@ -7,7 +7,9 @@ import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
+import javax.json.JsonObject;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import pl.infoshare.share.conferences.entity.Conference;
 
@@ -17,6 +19,12 @@ public class ConferencesResource {
 
     @Inject
     ConferenceStore store;
+
+    @POST
+    public void save(JsonObject input) {
+        this.store.save(new Conference(input));
+    }
+
 
     @GET
     public JsonArray all() {
